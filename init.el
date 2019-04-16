@@ -42,6 +42,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; set look & feel
 
+;; ligatures if available
+(if (fboundp 'mac-auto-operator-composition-mode)
+    (mac-auto-operator-composition-mode))
+
 ;; fira code if available, just whatever if not
 (defun font-exists-p (font) "check if font exists"
        (if (null (x-list-fonts font)) nil t))
