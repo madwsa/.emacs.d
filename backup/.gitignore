@@ -1,0 +1,8 @@
+## init.el says to put backups here, so this directory should exist,
+## but it should be empty, since I don't want to sync backups across
+## devices
+
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
