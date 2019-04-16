@@ -42,15 +42,44 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; set look & feel
 
-;; ligatures if available
-(if (fboundp 'mac-auto-operator-composition-mode)
-    (mac-auto-operator-composition-mode))
-
+(when (window-system)
 ;; fira code if available, just whatever if not
-(defun font-exists-p (font) "check if font exists"
-       (if (null (x-list-fonts font)) nil t))
-(if (font-exists-p "Fira Code 12")
-    (set-face-attribute 'default nil :font "Fira Code 12"))
+  (defun font-exists-p (font) "check if font exists"
+         (if (null (x-list-fonts font)) nil t))
+  (if (font-exists-p "Fira Code 12")
+      (set-face-attribute 'default nil :font "Fira Code 12"))
+
+  ;; ligatures for fira code
+  (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
+                 (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
+                 (36 . ".\\(?:>\\)")
+                 (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
+                 (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
+                 (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
+                 (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
+                 (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
+                 (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
+                 (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
+                 (48 . ".\\(?:x[a-zA-Z]\\)")
+                 (58 . ".\\(?:::\\|[:=]\\)")
+                 (59 . ".\\(?:;;\\|;\\)")
+                 (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
+                 (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
+                 (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
+                 (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
+                 (91 . ".\\(?:]\\)")
+                 (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
+                 (94 . ".\\(?:=\\)")
+                 (119 . ".\\(?:ww\\)")
+                 (123 . ".\\(?:-\\)")
+                 (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
+                 (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
+                 )
+               ))
+    (dolist (char-regexp alist)
+      (set-char-table-range composition-function-table (car char-regexp)
+                            `([,(cdr char-regexp) 0 font-shape-gstring]))))
+  )
 
 (setq inhibit-startup-message t)
 (menu-bar-mode -1)
