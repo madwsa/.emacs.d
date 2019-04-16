@@ -8,11 +8,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; install packages locally if not installed
 
-;; package list
-(setq package-list '(zenburn-theme
-                     ess
-                     polymode
-		     poly-markdown))
+(require 'package)
 
 ;; package repositories
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
@@ -21,14 +17,25 @@
 ;; activate all packages
 (package-initialize)
 
-;; fetch package lists
-(unless package-archive-contents
-  (package-refresh-contents))
+;; package list
+(setq package-selected-packages
+      '(zenburn-theme
+        ess
+        polymode
+	poly-markdown
+        fill-column-indicator))
 
-;; install missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+;; refresh & install if not
+(defun install-packages ()
+  "Install all required packages."
+  (interactive)
+  (unless package-archive-contents
+    (package-refresh-contents))
+  (dolist (package package-selected-packages)
+    (unless (package-installed-p package)
+      (package-install package))))
+
+(install-packages)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load & configure environment
@@ -47,6 +54,19 @@
 
 ;; faster than default scp
 (setq tramp-default-method "ssh")
+
+;; 80 column rule, dorks
+(require 'fill-column-indicator)
+(define-globalized-minor-mode
+  global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(global-fci-mode t)
+(setq fci-rule-column 80)
+;; (setq fci-rule-color "DarkSlateGray")
+(setq fci-rule-use-dashes 1)
+
+;; remove trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(setq require-final-newline t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; set look & feel
