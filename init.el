@@ -42,6 +42,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; set look & feel
 
+;; fira code if available, just whatever if not
+(defun font-exists-p (font) "check if font exists"
+       (if (null (x-list-fonts font)) nil t))
+(if (font-exists-p "Fira Code 12")
+    (set-face-attribute 'default nil :font "Fira Code 12"))
+
 (setq inhibit-startup-message t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
