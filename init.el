@@ -45,6 +45,9 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
+;; faster than default scp
+(setq tramp-default-method "ssh")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; set look & feel
 
