@@ -48,6 +48,10 @@
 
 ;; load org
 (require 'org)
+(setq org-agenda-files
+      (mapcar 'abbreviate-file-name
+              (split-string
+               (shell-command-to-string "find ~/org -name \"*.org\"") "\n")))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
