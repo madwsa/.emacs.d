@@ -1,5 +1,10 @@
 elpa/
 auto-save-list/
 network-security.data
-**/*~
 tramp
+
+# from mac / emacs
+**/*~
+**/.DS_Store
+**/*#
+**/.#*
