@@ -49,7 +49,7 @@
 ;; load org
 (require 'org)
 (load-library "find-lisp")
-(setq org-agenda-files (find-lisp-find-files "~/org" "\.org$"))
+(setq org-agenda-files (find-lisp-find-files "~/org" "\.agenda\.org$"))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
