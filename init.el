@@ -48,10 +48,8 @@
 
 ;; load org
 (require 'org)
-(setq org-agenda-files
-      (mapcar 'abbreviate-file-name
-              (split-string
-               (shell-command-to-string "find ~/org -name \"*.org\"") "\n")))
+(load-library "find-lisp")
+(setq org-agenda-files (find-lisp-find-files "~/org" "\.org$"))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
@@ -82,7 +80,8 @@
   (if (font-exists-p "Fira Code 12")
       (set-face-attribute 'default nil :font "Fira Code 12"))
 
-  ;; ligatures for fira code
+  ;; ligatures for fira code -- this will be butt ugly until emacs actually
+  ;; supports ligatures
   (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
                  (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
                  (36 . ".\\(?:>\\)")
@@ -126,6 +125,12 @@
 
 (setq-default indent-tabs-mode nil)
 (setq comment-style 'multi-line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; major mode hooks
+
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; handle backups & temporary files
