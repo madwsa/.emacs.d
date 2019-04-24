@@ -23,7 +23,9 @@
         ess
         polymode
 	poly-markdown
-        fill-column-indicator))
+        fill-column-indicator
+        sql-indent
+        ejc-sql))
 
 ;; refresh & install if not
 (defun install-packages ()
@@ -42,6 +44,10 @@
 
 ;; load theme
 (load-theme 'zenburn t)
+
+;; interactively do things
+(require 'ido)
+(ido-mode t)
 
 ;; load ess
 (require 'ess-site)
@@ -65,6 +71,13 @@
 (setq fci-rule-column 80)
 ;; (setq fci-rule-color "DarkSlateGray")
 (setq fci-rule-use-dashes 1)
+
+;; use sql-indent in sql-mode
+(add-hook 'sql-mode-hook 'sqlind-minor-mode)
+
+;; if you're at work and this file exists, load it for Teradata connectivity
+(when (file-exists-p "bby-teradata.el")
+  (load-file "bby-teradata.el"))
 
 ;; remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

@@ -9,3 +9,7 @@ tramp
 **/.DS_Store
 **/*#
 **/.#*
+
+ido.last
+bby-teradata.el
+ac-comphist.dat
