@@ -45,9 +45,9 @@
 ;; load theme
 (load-theme 'zenburn t)
 
-;; interactively do things
-(require 'ido)
-(ido-mode t)
+;; ;; interactively do things
+;; (require 'ido)
+;; (ido-mode t)
 
 ;; load ess
 (require 'ess-site)
@@ -74,10 +74,6 @@
 
 ;; use sql-indent in sql-mode
 (add-hook 'sql-mode-hook 'sqlind-minor-mode)
-
-;; if you're at work and this file exists, load it for Teradata connectivity
-(when (file-exists-p "bby-teradata.el")
-  (load-file "bby-teradata.el"))
 
 ;; remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
