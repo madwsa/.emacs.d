@@ -60,6 +60,12 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
+;; active Babel languages for org
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sql . t)))
+;; add additional languages with '((language . t)))
+
 ;; faster than default scp
 (setq tramp-default-method "ssh")
 
@@ -75,9 +81,9 @@
 ;; use sql-indent in sql-mode
 (add-hook 'sql-mode-hook 'sqlind-minor-mode)
 
-;; if you're at work and this file exists, load it for Teradata connectivity
-(when (file-exists-p "bby-teradata.el")
-  (load-file "bby-teradata.el"))
+;; ;; if you're at work and this file exists, load it for Teradata connectivity
+;; (when (file-exists-p "bby-teradata.el")
+;;   (load-file "bby-teradata.el"))
 
 ;; remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
