@@ -85,8 +85,8 @@
 ;; (when (file-exists-p "bby-teradata.el")
 ;;   (load-file "bby-teradata.el"))
 
-;; remove trailing whitespace on save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; remove trailing whitespace on save -- doesn't work for markdown mode!! :(
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq require-final-newline t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -133,7 +133,7 @@
   )
 
 (setq inhibit-startup-message t)
-(menu-bar-mode -1)
+;; (menu-bar-mode -1)
 (tool-bar-mode -1)
 (toggle-scroll-bar -1)
 (show-paren-mode 1)
@@ -144,6 +144,9 @@
 
 (setq-default indent-tabs-mode nil)
 (setq comment-style 'multi-line)
+
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; major mode hooks
